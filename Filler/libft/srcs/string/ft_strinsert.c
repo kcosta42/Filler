@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strinsert.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcosta <kcosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 13:00:28 by kcosta            #+#    #+#             */
-/*   Updated: 2016/12/09 16:37:13 by kcosta           ###   ########.fr       */
+/*   Created: 2016/12/14 15:53:27 by kcosta            #+#    #+#             */
+/*   Updated: 2016/12/14 15:57:51 by kcosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
 #include "ft_string.h"
 
-int			ft_getline(const int fd, char **line)
+char	*ft_strinsert(char **str, char c, size_t index)
 {
-	char	buff[2];
-	char	*dup;
-	char	*tmp;
-	int		ret;
+	char	*ret;
 
-	dup = ft_strnew(0);
-	while ((ret = read(fd, buff, 1)) > 0)
-	{
-		buff[1] = 0;
-		if (!ft_strcmp(buff, "\n"))
-			break ;
-		tmp = dup;
-		dup = ft_strjoin(dup, buff);
-		ft_strdel(&tmp);
-	}
-	*line = ft_strdup(dup);
-	ft_strdel(&dup);
-	return (ret);
+	if (!str || index > ft_strlen(*str))
+		return (NULL);
+	ret = ft_strnew(ft_strlen(*str) + 1);
+	ret = ft_strncpy(ret, *str, index);
+	ret[index] = c;
+	ret = ft_strcat(ret, *str + index);
+	ft_strdel(str);
+	*str = ft_strdup(ret);
+	ft_strdel(&ret);
+	return (*str);
 }

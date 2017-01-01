@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strrstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcosta <kcosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 13:00:28 by kcosta            #+#    #+#             */
-/*   Updated: 2016/12/09 16:37:13 by kcosta           ###   ########.fr       */
+/*   Created: 2016/12/08 16:40:03 by kcosta            #+#    #+#             */
+/*   Updated: 2016/12/08 16:44:35 by kcosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
 #include "ft_string.h"
 
-int			ft_getline(const int fd, char **line)
+char	*ft_strrstr(const char *big, const char *little)
 {
-	char	buff[2];
-	char	*dup;
-	char	*tmp;
-	int		ret;
+	int		i;
+	int		end;
 
-	dup = ft_strnew(0);
-	while ((ret = read(fd, buff, 1)) > 0)
+	if (!*little)
+		return ((char*)big);
+	end = ft_strlen(big) - 1;
+	while (end)
 	{
-		buff[1] = 0;
-		if (!ft_strcmp(buff, "\n"))
-			break ;
-		tmp = dup;
-		dup = ft_strjoin(dup, buff);
-		ft_strdel(&tmp);
+		if (big[end] == *little)
+		{
+			i = 0;
+			while (big[end + i] && little[i] && big[end + i] == little[i])
+				i++;
+			if (!little[i])
+				return ((char*)&big[end]);
+		}
+		end--;
 	}
-	*line = ft_strdup(dup);
-	ft_strdel(&dup);
-	return (ret);
+	return (NULL);
 }

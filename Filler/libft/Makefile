@@ -6,7 +6,7 @@
 #*   By: kcosta <kcosta@student.42.fr>              +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2016/11/02 10:00:00 by kcosta            #+#    #+#             *#
-#*   Updated: 2016/12/04 18:17:59 by kcosta           ###   ########.fr       *#
+#*   Updated: 2016/12/14 15:55:54 by kcosta           ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -35,10 +35,13 @@ FILES =	string/ft_strcat.c \
 		string/ft_strclr.c \
 		string/ft_strchr.c \
 		string/ft_strdel.c \
+		string/ft_strswp.c \
 		string/ft_strcmp.c \
 		string/ft_strcpy.c \
 		string/ft_strequ.c \
 		string/ft_striter.c \
+		string/ft_strinsert.c \
+		string/ft_strremove.c \
 		string/ft_strdup.c \
 		string/ft_strlen.c \
 		string/ft_striteri.c \
@@ -56,8 +59,11 @@ FILES =	string/ft_strcat.c \
 		string/ft_strnstr.c \
 		string/ft_strsub.c \
 		string/ft_strstr.c \
+		string/ft_strrstr.c \
 		string/ft_strtrim.c \
+		string/ft_strepur.c \
 		string/ft_strsplit.c \
+		string/ft_strisalnum.c \
 		ctype/ft_isalnum.c \
 		ctype/ft_isascii.c \
 		ctype/ft_isblank.c \
