@@ -6,7 +6,7 @@
 /*   By: kcosta <kcosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:26:11 by kcosta            #+#    #+#             */
-/*   Updated: 2017/01/02 13:20:40 by kcosta           ###   ########.fr       */
+/*   Updated: 2017/01/02 13:50:17 by kcosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	set_piece_origin(t_piece *piece)
 	bound.y = -1;
 	pos.y = -1;
 	index = 0;
-	if (!(piece->snippet = (t_vector*)ft_memalloc(sizeof(t_vector) * piece->count)))
+	if (!(piece->snippet =
+					(t_vector*)ft_memalloc(sizeof(t_vector) * piece->count)))
 		return (ft_error("Error: Failed to allocate memory\n", 3));
 	while (++pos.y < piece->len.y)
 	{
@@ -30,12 +31,9 @@ static int	set_piece_origin(t_piece *piece)
 		while (++pos.x < piece->len.x)
 			if (piece->shape[pos.y][pos.x] == '*')
 			{
-				piece->snippet[index] = pos;
-				if (pos.y < bound.y || bound.y == -1)
-					bound.y = pos.y;
-				if (pos.x < bound.x || bound.x == -1)
-					bound.x = pos.x;
-				index++;
+				piece->snippet[index++] = pos;
+				bound.y = (pos.y < bound.y || bound.y == -1) ? pos.y : bound.y;
+				bound.x = (pos.x < bound.x || bound.x == -1) ? pos.x : bound.x;
 			}
 	}
 	piece->origin = bound;
@@ -44,12 +42,13 @@ static int	set_piece_origin(t_piece *piece)
 
 static int	set_piece_shape(t_piece *piece)
 {
-	char	*line;
-	int		index;
+	char		*line;
+	int			index;
 	t_vector	pos;
 
 	pos.y = -1;
-	if (!(piece->shape = (char**)ft_memalloc(sizeof(char*) * (piece->len.y + 1))))
+	if (!(piece->shape =
+				(char**)ft_memalloc(sizeof(char*) * (piece->len.y + 1))))
 		return (ft_error("Error: Failed to allocate memory\n", 3));
 	index = 0;
 	piece->count = 0;

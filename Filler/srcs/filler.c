@@ -6,13 +6,13 @@
 /*   By: kcosta <kcosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 14:18:20 by kcosta            #+#    #+#             */
-/*   Updated: 2017/01/02 13:01:48 by kcosta           ###   ########.fr       */
+/*   Updated: 2017/01/02 13:58:36 by kcosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int			valid_pos(t_piece piece, t_vector pos)
+static int		valid_pos(t_piece piece, t_vector pos)
 {
 	char		**board;
 	t_byte		index;
@@ -37,7 +37,7 @@ int			valid_pos(t_piece piece, t_vector pos)
 	return (1);
 }
 
-t_byte		count_block(t_piece piece, t_vector pos, char c, char c2)
+static t_byte	count_block(t_piece piece, t_vector pos, char c, char c2)
 {
 	char		**board;
 	t_byte		count;
@@ -55,41 +55,18 @@ t_byte		count_block(t_piece piece, t_vector pos, char c, char c2)
 			|| curr.x - 1 < 0 || curr.y - 1 < 0)
 			return (0);
 		count += (board[curr.y][curr.x + 1] == c ||
-											board[curr.y][curr.x + 1] == c2)
+				board[curr.y][curr.x + 1] == c2)
 				+ (board[curr.y][curr.x - 1] == c ||
-				 							board[curr.y][curr.x - 1] == c2)
+						board[curr.y][curr.x - 1] == c2)
 				+ (board[curr.y + 1][curr.x] == c ||
-				 							board[curr.y + 1][curr.x] == c2)
+						board[curr.y + 1][curr.x] == c2)
 				+ (board[curr.y - 1][curr.x] == c ||
-				 							board[curr.y - 1][curr.x] == c2);
+						board[curr.y - 1][curr.x] == c2);
 	}
 	return (count);
 }
 
-t_vector	nearest_opponent(char opponent)
-{
-	t_vector	pos;
-	char		**board;
-
-	board = *get_board();
-	pos.y = (opponent == 'O') ? -1 : get_dim()->y;
-	pos.x = -1;
-	while ((opponent == 'O') ? ++pos.y < get_dim()->y : --pos.y)
-	{
-		pos.x = (opponent == 'O') ? -1 : get_dim()->x;
-		while ((opponent == 'O') ? ++pos.x < get_dim()->x : --pos.x)
-		{
-			if ((opponent == 'O') ? board[pos.y][pos.x] == 'O'
-								|| board[pos.y][pos.x] == 'o' :
-									board[pos.y][pos.x] == 'X'
-								|| board[pos.y][pos.x] == 'x')
-				return (pos);
-		}
-	}
-	return (pos);
-}
-
-void		update_result(t_piece piece, t_vector curr, char opponent)
+static void		update_result(t_piece piece, t_vector curr, char opponent)
 {
 	t_result	*res;
 	t_byte		block;
@@ -113,7 +90,7 @@ void		update_result(t_piece piece, t_vector curr, char opponent)
 	}
 }
 
-void		get_pos(t_piece piece, char opponent)
+static void		get_pos(t_piece piece, char opponent)
 {
 	t_vector	pos;
 	char		**board;
@@ -126,11 +103,9 @@ void		get_pos(t_piece piece, char opponent)
 	{
 		pos.x = (opponent == 'X') ? -1 : get_dim()->x;
 		while ((opponent == 'X') ? ++pos.x < get_dim()->x : --pos.x)
-		{
-			if ((opponent == 'X') ? board[pos.y][pos.x] == 'O'
-								|| board[pos.y][pos.x] == 'o' :
-									board[pos.y][pos.x] == 'X'
-								|| board[pos.y][pos.x] == 'x')
+			if ((opponent == 'X') ?
+				board[pos.y][pos.x] == 'O' || board[pos.y][pos.x] == 'o' :
+				board[pos.y][pos.x] == 'X' || board[pos.y][pos.x] == 'x')
 			{
 				index = -1;
 				while (++index < piece.count)
@@ -140,11 +115,10 @@ void		get_pos(t_piece piece, char opponent)
 					update_result(piece, curr, opponent);
 				}
 			}
-		}
 	}
 }
 
-int			main(void)
+int				main(void)
 {
 	t_piece		piece;
 	int			opponent;

@@ -6,7 +6,7 @@
 /*   By: kcosta <kcosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 14:17:29 by kcosta            #+#    #+#             */
-/*   Updated: 2017/01/01 18:07:54 by kcosta           ###   ########.fr       */
+/*   Updated: 2017/01/02 13:51:53 by kcosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_result		*get_result(void);
 int				initialise_all(void);
 int				update_board(int width, int height);
 int				update_piece(t_piece *piece);
+t_vector		nearest_opponent(char opponent);
 
 unsigned long	ft_absolute_distance(t_vector pos1, t_vector pos2);
 int				ft_error(char *msg, int ft_errnum);
