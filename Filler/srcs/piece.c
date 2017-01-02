@@ -6,7 +6,7 @@
 /*   By: kcosta <kcosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:26:11 by kcosta            #+#    #+#             */
-/*   Updated: 2016/12/31 02:13:06 by kcosta           ###   ########.fr       */
+/*   Updated: 2017/01/02 13:20:40 by kcosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,17 @@ int			update_board(int width, int height)
 	index.y = -1;
 	board = get_board();
 	if (ft_getline(0, &line) <= 0)
-		return (ft_error("Error: Failed to read the file\n", 1));
+		return (1);
 	ft_strdel(&line);
 	if (!first)
 		if (ft_getline(0, &line) <= 0)
-			return (ft_error("Error: Failed to read the file\n", 1));
+			return (1);
 	first ? 0 : ft_strdel(&line);
 	while (++index.y < height)
 	{
 		index.x = -1;
 		if (ft_getline(0, &line) <= 0)
-			return (ft_error("Error: Failed to read the file\n", 1));
+			return (1);
 		while (++index.x < width)
 			(*board)[index.y][index.x] = line[4 + index.x];
 		ft_strdel(&line);

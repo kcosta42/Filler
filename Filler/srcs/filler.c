@@ -6,7 +6,7 @@
 /*   By: kcosta <kcosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 14:18:20 by kcosta            #+#    #+#             */
-/*   Updated: 2017/01/01 22:42:59 by kcosta           ###   ########.fr       */
+/*   Updated: 2017/01/02 13:01:48 by kcosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,17 @@ t_byte		count_block(t_piece piece, t_vector pos, char c, char c2)
 	{
 		curr.x = pos.x + piece.snippet[index].x;
 		curr.y = pos.y + piece.snippet[index].y;
+		if (curr.x + 1 >= get_dim()->x || curr.y + 1 >= get_dim()->y
+			|| curr.x - 1 < 0 || curr.y - 1 < 0)
+			return (0);
 		count += (board[curr.y][curr.x + 1] == c ||
 											board[curr.y][curr.x + 1] == c2)
-				+ curr.x - 1 >= 0 && ((board[curr.y][curr.x - 1] == c ||
-				 							board[curr.y][curr.x - 1] == c2))
+				+ (board[curr.y][curr.x - 1] == c ||
+				 							board[curr.y][curr.x - 1] == c2)
 				+ (board[curr.y + 1][curr.x] == c ||
 				 							board[curr.y + 1][curr.x] == c2)
-				+ curr.y - 1 >= 0 && ((board[curr.y - 1][curr.x] == c ||
-				 							board[curr.y - 1][curr.x] == c2));
+				+ (board[curr.y - 1][curr.x] == c ||
+				 							board[curr.y - 1][curr.x] == c2);
 	}
 	return (count);
 }
